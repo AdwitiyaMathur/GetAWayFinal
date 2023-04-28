@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -23,8 +24,10 @@ import com.example.nearmedemo.databinding.ActivitySignUpBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -41,6 +44,12 @@ public class SignUpActivity extends AppCompatActivity {
     private LoadingDialog loadingDialog;
     private String email, username, password;
     private StorageReference storageReference;
+    EditText emailfield;
+    FirebaseDatabase database;
+    private FirebaseUser user;
+    private DatabaseReference ref;
+    String userid;
+    FirebaseAuth fauth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +58,9 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         appPermissions = new AppPermissions();
         loadingDialog = new LoadingDialog(this);
-        storageReference = FirebaseStorage.getInstance().getReference();
-
+        storageReference = FirebaseStorage.getInstance().getReference("Signup");
+        emailfield=findViewById(R.id.edtEmail);
+fauth=FirebaseAuth.getInstance();
         binding.btnBack.setOnClickListener(view -> {
             onBackPressed();
         });
@@ -86,7 +96,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private boolean areFieldReady() {
         username = binding.edtUsername.getText().toString().trim();
-        email = binding.edtEmail.getText().toString().trim();
+        email = emailfield.getText().toString();
         password = binding.edtPassword.getText().toString().trim();
 
         boolean flag = false;
@@ -122,6 +132,7 @@ public class SignUpActivity extends AppCompatActivity {
     private void signUp() {
         loadingDialog.startLoading();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -129,10 +140,9 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if (singUp.isSuccessful()) {
 
-                    storageReference.child(firebaseAuth.getUid() + AllConstant.IMAGE_PATH).putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    storageReference.child(user.getUid() + AllConstant.IMAGE_PATH).putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
                             Task<Uri> image = taskSnapshot.getStorage().getDownloadUrl();
                             image.addOnCompleteListener(new OnCompleteListener<Uri>() {
                                 @Override
@@ -152,25 +162,27 @@ public class SignUpActivity extends AppCompatActivity {
                                                     public void onComplete(@NonNull Task<Void> task) {
 
                                                         if (task.isSuccessful()) {
+
+                                                            databaseReference.setValue(email);
                                                             UserModel userModel = new UserModel(email,
                                                                     username, url, true);
                                                             databaseReference.child(firebaseAuth.getUid())
                                                                     .setValue(userModel).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                @Override
-                                                                public void onSuccess(Void aVoid) {
-                                                                    firebaseAuth.getCurrentUser().sendEmailVerification()
-                                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                                @Override
-                                                                                public void onSuccess(Void aVoid) {
-                                                                                    loadingDialog.stopLoading();
-                                                                                    Toast.makeText(SignUpActivity.this, "Verify email", Toast.LENGTH_SHORT).show();
-                                                                                    onBackPressed();
-                                                                                }
-                                                                            });
+                                                                        @Override
+                                                                        public void onSuccess(Void aVoid) {
+                                                                            firebaseAuth.getCurrentUser().sendEmailVerification()
+                                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                        @Override
+                                                                                        public void onSuccess(Void aVoid) {
+                                                                                            loadingDialog.stopLoading();
+                                                                                            Toast.makeText(SignUpActivity.this, "Verify email", Toast.LENGTH_SHORT).show();
+                                                                                            onBackPressed();
+                                                                                        }
+                                                                                    });
 
-                                                                }
+                                                                        }
 
-                                                            });
+                                                                    });
                                                         } else {
                                                             loadingDialog.stopLoading();
                                                             Log.d("TAG", "onComplete: Update Profile" + task.getException());

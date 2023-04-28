@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import com.example.nearmedemo.Adapter.DirectionStepAdapter;
 import com.example.nearmedemo.Constant.AllConstant;
 import com.example.nearmedemo.Model.DirectionPlaceModel.DirectionLegModel;
@@ -150,8 +149,7 @@ public class DirectionActivity extends AppCompatActivity implements OnMapReadyCa
 
         if (isLocationPermissionOk) {
             loadingDialog.startLoading();
-            String url = "https://maps.googleapis.com/maps/api/directions/json?" +
-                    "origin=" + currentLocation.getLatitude() + "," + currentLocation.getLongitude() +
+            String url = "https://maps.googleapis.com/maps/api/directions/json?origin=" + currentLocation.getLatitude() + "," + currentLocation.getLongitude() +
                     "&destination=" + endLat + "," + endLng +
                     "&mode=" + mode +
                     "&key=" + getResources().getString(R.string.API_KEY);

@@ -18,13 +18,52 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NearMeDemo">
         <activity
+            android:name=".Activity.MainActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Activity.DirectionActivity"
             android:theme="@style/ActionBarTheme" />
         <activity android:name=".Activity.ForgetActivity" />
         <activity android:name=".Activity.SignUpActivity" />
         <activity android:name=".Activity.LoginActivity" />
-        <activity android:name=".Activity.MainActivity" />
-        <activity android:name=".Activity.SplashActivity">
+<!--        <activity android:name=".Fragments.EmailChangeFragment"/>-->
+<!--        <activity android:name=".Fragments.HomeFragment"/>-->
+<!--        <activity android:name=".Fragments.PasswordChangeFragment"/>-->
+<!--        <activity android:name=".Fragments.SavedPlacesFragment"/>-->
+<!--        <activity android:name=".Fragments.SettingsFragment"/>-->
+<!--        <activity android:name=".Adapter.DirectionStepAdapter"/>-->
+<!--        <activity android:name=".Adapter.GooglePlaceAdapter"/>-->
+<!--        <activity android:name=".Adapter.InfoWindowAdapter"/>-->
+<!--        <activity android:name=".Model.DirectionPlaceModel.DirectionDistanceModel"/>-->
+<!--        <activity android:name=".Model.DirectionPlaceModel.DirectionDurationModel"/>-->
+<!--        <activity android:name=".Model.DirectionPlaceModel.DirectionLegModel"/>-->
+<!--        <activity android:name=".Model.DirectionPlaceModel.DirectionPolylineModel"/>-->
+<!--        <activity android:name=".Model.DirectionPlaceModel.DirectionResponseModel"/>-->
+<!--        <activity android:name=".Model.DirectionPlaceModel.DirectionRouteModel"/>-->
+<!--        <activity android:name=".Model.DirectionPlaceModel.DirectionStepModel"/>-->
+<!--        <activity android:name=".Model.DirectionPlaceModel.EndLocationModel"/>-->
+<!--        <activity android:name=".Model.DirectionPlaceModel.StartLocationModel"/>-->
+<!--        <activity android:name=".Model.GooglePlaceModel.GeometryModel"/>-->
+<!--        <activity android:name=".Model.GooglePlaceModel.GoogleResponseModel"/>-->
+<!--        <activity android:name=".Model.GooglePlaceModel.LocationModel"/>-->
+<!--        <activity android:name=".Model.GooglePlaceModel.PhotoModel"/>-->
+      <activity android:name=".Permissions.AppPermissions"/>
+<!--        <activity android:name=".Utility.LoadingDialog"/>-->
+<!--        <activity android:name=".WebServices.RetrofitClient"/>-->
+<!--        <activity android:name=".GooglePlaceModel"/>-->
+<!--        <activity android:name=".NearLocationInterface"/>-->
+<!--        <activity android:name=".PlaceModel"/>-->
+<!--        <activity android:name=".SavedLocationInterface"/>-->
+<!--        <activity android:name=".SavedPlaceModel"/>-->
+<!--        <activity android:name=".UserModel"/>-->
+
+        <activity
+            android:name=".Activity.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,7 +79,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/API_KEY" />
+            android:value="AIzaSyC2oYNkJcbHYi8wv9glWpk4Xgity_UE6J0" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

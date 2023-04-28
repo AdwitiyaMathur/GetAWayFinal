@@ -44,6 +44,7 @@
                 android:drawableTint="@color/primaryColor"
                 android:hint="Search Place"
                 android:inputType="text"
+                android:textColor="@color/black"
                 android:maxLines="1"
                 android:textColorHint="@color/itemTextColor" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -55,7 +56,13 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="30dp"
             android:background="@drawable/map_background"
-            android:elevation="5dp" />
+            android:elevation="5dp"
+            android:gravity="center"
+            android:text="Get A Way"
+            android:textColor="@color/white"
+            android:textSize="40dp"
+            android:textStyle="bold" />
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -82,7 +89,7 @@
         android:id="@+id/btnMapType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/placesList"
+
         android:layout_alignParentEnd="true"
         android:layout_margin="15dp"
         android:src="@drawable/ic_map_type"

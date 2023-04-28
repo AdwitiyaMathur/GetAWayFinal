@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding = navDrawerLayoutBinding.mainActivity;
         toolbarLayoutBinding = activityMainBinding.toolbar;
 
-        setSupportActionBar(toolbarLayoutBinding.toolbar);
+        //setSupportActionBar(toolbarLayoutBinding.toolbar);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
